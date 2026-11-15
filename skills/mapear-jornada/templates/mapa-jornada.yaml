@@ -1,0 +1,52 @@
+jornada: <nome-em-kebab-case>
+versao_mapa: 1
+mapeado_em: AAAA-MM-DD
+ambiente: homologacao
+url_inicial: https://homolog.SEU-DOMINIO.com.br/<caminho>
+limite_permitido: "<última etapa permitida> (NÃO clicar em '<ação real>')"
+
+massa_padrao:
+  usuario: <USUARIO_DE_TESTE>        # senha sempre via variável de ambiente
+  # demais dados fictícios da massa
+
+linha_de_base:                       # preenchido pela skill regressao-jornada
+  gravada_em: null
+  versao_sistema: null
+
+etapas:
+  - id: E1
+    nome: <nome da etapa>
+    url: <caminho>
+    evidencia: evidencias/E1-<nome>.png
+    campos:
+      - nome: <rótulo do campo>
+        tipo: texto | lista | moeda | data | checkbox | radio
+        obrigatorio: true | false
+        mascara: <se houver>
+        opcoes: [<se lista>]
+        validacoes_observadas:
+          - entrada: "<valor testado>"
+            mensagem: "<mensagem exata>"
+        efeito: "<o que acontece ao preencher, se algo>"
+    acoes:
+      - botao: <rótulo>
+        vai_para: <ID da etapa>
+        observado: "<comportamento, se relevante>"
+    apis:
+      - <MÉTODO> <rota>              # status observado
+    valores_observados:              # com a massa_padrao
+      <campo>: "<valor>"
+    observacoes:
+      - "<algo relevante visto na tela>"
+
+dados_dinamicos:                     # mascarar/ignorar na regressão
+  - <ex.: numero_cotacao>
+
+pontos_criticos:                     # onde a varredura deve insistir
+  - "<etapa: motivo>"
+
+lacunas:                             # não observado; precisa de confirmação
+  - "<item>"
+
+suposicoes:
+  - "<item>"

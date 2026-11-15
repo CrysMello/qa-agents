@@ -1,0 +1,133 @@
+# EXEMPLO FICTÍCIO — serve de referência de nível de detalhe.
+jornada: cotacao-residencial
+versao_mapa: 1
+mapeado_em: 2026-11-14
+ambiente: homologacao
+url_inicial: https://homolog.SEU-DOMINIO.com.br/corretor/cotacao/residencial
+limite_permitido: "E5 - Resumo (NÃO clicar em 'Contratar')"
+
+massa_padrao:
+  usuario: CORRETOR_TESTE_01
+  cep: "01001-000"
+  tipo_imovel: Casa
+  capital_segurado: "300.000,00"
+  segurado: { nome: "Cliente Teste 01", cpf: "gerado-para-teste" }
+
+linha_de_base:
+  gravada_em: null
+  versao_sistema: null
+
+etapas:
+  - id: E1
+    nome: Dados do imóvel
+    url: /corretor/cotacao/residencial/imovel
+    evidencia: evidencias/E1-imovel.png
+    campos:
+      - nome: CEP
+        tipo: texto
+        obrigatorio: true
+        mascara: "00000-000"
+        validacoes_observadas:
+          - entrada: "vazio"
+            mensagem: "Informe o CEP"
+          - entrada: "00000-000"
+            mensagem: "CEP não encontrado"
+        efeito: "Preenche cidade e UF automaticamente"
+      - nome: Tipo de imóvel
+        tipo: lista
+        obrigatorio: true
+        opcoes: [Casa, Apartamento, "Casa em condomínio"]
+      - nome: Capital segurado
+        tipo: moeda
+        obrigatorio: true
+        validacoes_observadas:
+          - entrada: "49.999,99"
+            mensagem: "Capital segurado mínimo é R$ 50.000,00"
+          - entrada: "2.000.000,01"
+            mensagem: "Capital segurado máximo é R$ 2.000.000,00"
+    acoes:
+      - botao: Continuar
+        vai_para: E2
+    apis:
+      - GET /api/enderecos/{cep}           # 200
+    observacoes:
+      - "Botão 'Continuar' fica desabilitado até preencher os obrigatórios"
+
+  - id: E2
+    nome: Coberturas
+    url: /corretor/cotacao/residencial/coberturas
+    evidencia: evidencias/E2-coberturas.png
+    campos:
+      - nome: Incêndio, raio e explosão
+        tipo: checkbox
+        obrigatorio: true
+        efeito: "Marcado e bloqueado (cobertura básica)"
+      - nome: Danos elétricos
+        tipo: checkbox
+        obrigatorio: false
+      - nome: Roubo
+        tipo: checkbox
+        obrigatorio: false
+        efeito: "Exibe campo 'Valor dos bens'"
+    acoes:
+      - botao: Voltar
+        vai_para: E1
+        observado: "Mantém os dados da E1"
+      - botao: Calcular
+        vai_para: E3
+    apis:
+      - POST /api/cotacoes/calcular        # 200, retorna premio_total
+
+  - id: E3
+    nome: Resultado da cotação
+    url: /corretor/cotacao/residencial/resultado
+    evidencia: evidencias/E3-resultado.png
+    valores_observados:
+      premio_total: "R$ 412,80"
+      parcelamento: "até 10x sem juros"
+      validade: "data atual + 15 dias"
+    acoes:
+      - botao: Gerar proposta
+        vai_para: E4
+      - botao: Recalcular
+        vai_para: E2
+
+  - id: E4
+    nome: Dados do segurado
+    url: /corretor/cotacao/residencial/segurado
+    evidencia: evidencias/E4-segurado.png
+    campos:
+      - { nome: Nome, tipo: texto, obrigatorio: true }
+      - { nome: CPF, tipo: texto, obrigatorio: true, mascara: "000.000.000-00" }
+      - { nome: E-mail, tipo: texto, obrigatorio: true }
+      - { nome: Telefone, tipo: texto, obrigatorio: true }
+    acoes:
+      - botao: Continuar
+        vai_para: E5
+
+  - id: E5
+    nome: Resumo
+    url: /corretor/cotacao/residencial/resumo
+    evidencia: evidencias/E5-resumo.png
+    observacoes:
+      - "Exibe todos os dados e o botão 'Contratar' (fora do limite permitido)"
+
+dados_dinamicos:
+  - numero_cotacao        # ex.: COT-2026-000123
+  - data_validade
+  - horario_calculo
+  - token_sessao
+
+pontos_criticos:
+  - "E2→E3: cálculo do prêmio (impacto financeiro)"
+  - "E2: combinação de coberturas opcionais"
+  - "E3: validade da cotação"
+  - "Voltar/avançar sem perder dados"
+
+lacunas:
+  - "Regra de arredondamento do prêmio não visível na tela"
+  - "Comportamento com CEP sem tarifa cadastrada não testado"
+  - "Limite de valor da cobertura Roubo não exibido"
+
+suposicoes:
+  - "'Casa em condomínio' segue a mesma tarifa de 'Casa' (não confirmado)"

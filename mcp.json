@@ -1,0 +1,31 @@
+{
+  "servers": {
+    "qa-mcp": {
+      "type": "http",
+      "url": "https://SEU-SERVIDOR/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:qaMcpToken}"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--allowed-origins",
+        "https://homolog.SEU-DOMINIO.com.br",
+        "--output-dir",
+        "qa-jornadas/.mcp-saida"
+      ]
+    }
+  },
+  "inputs": [
+    {
+      "id": "qaMcpToken",
+      "type": "promptString",
+      "description": "Token de acesso ao MCP dos agentes de QA",
+      "password": true
+    }
+  ]
+}
