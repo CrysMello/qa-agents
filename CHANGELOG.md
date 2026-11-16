@@ -2,6 +2,10 @@
 
 Todas as mudanças relevantes deste plugin. Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/) e versionamento semântico.
 
+## [0.7.1] - 2026-11-16
+### Alterado
+- Projeto publicado sob a licença MIT.
+
 ## [0.7.0] - 2026-11-16
 ### Alterado
 - Agentes renomeados para `qa-analyst` (QA Analyst) e `qa-explorer` (QA Explorer).

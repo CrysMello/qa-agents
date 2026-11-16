@@ -290,4 +290,4 @@ A pasta `evals/` tem histórias fictícias e o resultado esperado. Rode os agent
 
 ## Licença
 
-Defina a licença do projeto (ex.: MIT ou uso interno) antes de publicar.
+Este projeto é distribuído sob a licença MIT, uma licença pública e permissiva. Consulte o arquivo [LICENSE](./LICENSE) para ver os termos completos.
