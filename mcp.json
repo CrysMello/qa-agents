@@ -16,7 +16,7 @@
         "--allowed-origins",
         "https://homolog.SEU-DOMINIO.com.br",
         "--output-dir",
-        "qa-jornadas/.mcp-saida"
+        "qa-explorer/.mcp-saida"
       ]
     }
   },

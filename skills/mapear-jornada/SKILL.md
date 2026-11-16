@@ -26,7 +26,7 @@ description: Percorre uma jornada web em homologação com o navegador (Playwrig
 6. Identifique **dados dinâmicos** (mudam a cada execução: número de pedido, cotação ou protocolo, datas, horários, tokens).
 7. Liste **pontos críticos** (cálculos, regras financeiras, transições de estado, navegação que pode perder dados).
 8. Separe o que foi **observado** na tela do que é **suposição**; liste as **lacunas** (o que não deu para ver ou testar).
-9. Gere `qa-jornadas/<jornada>/mapa.yaml` seguindo `templates/mapa-jornada.yaml` e o nível de detalhe de `exemplos/cotacao-residencial-mapa.yaml`.
+9. Gere `qa-explorer/<jornada>/mapa.yaml` seguindo `templates/mapa-jornada.yaml` e o nível de detalhe de `exemplos/cotacao-residencial-mapa.yaml`.
 
 ## Limites
 

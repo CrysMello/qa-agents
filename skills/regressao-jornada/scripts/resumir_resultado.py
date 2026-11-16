@@ -5,7 +5,7 @@ Lista, por teste, o status, os passos que falharam, as mensagens de erro
 e os anexos (imagens de diferença, trace). Usa só a biblioteca padrão.
 
 Uso:
-  python resumir_resultado.py qa-jornadas/.resultados/resultado.json
+  python resumir_resultado.py qa-explorer/.resultados/resultado.json
   python resumir_resultado.py resultado.json --json
 """
 import argparse

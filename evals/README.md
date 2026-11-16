@@ -4,7 +4,7 @@ Use estes arquivos para checar se uma mudança nas skills melhorou ou piorou o a
 
 ## Como rodar
 
-1. No chat, selecione o agente **qa-senior**.
+1. No chat, selecione o agente **QA Analyst** (`qa-analyst`).
 2. Para cada história em `historias/`, peça: *"Analise, estime e gere os casos de teste para evals/historias/HIST-001.md"*.
 3. Compare com `esperado/`:
    - **Casos de teste:** os casos de prioridade Alta do esperado aparecem? A tabela tem as 9 colunas do padrão e a coluna História/ Requisito está preenchida? O "Então" é verificável?

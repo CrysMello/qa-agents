@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "qa-agents",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Agentes de QA para VS Code/Copilot: refinamento de requisitos, estimativa, casos de teste, cobertura e jornadas web (mapeamento, varredura e regressão com Playwright)"
 }

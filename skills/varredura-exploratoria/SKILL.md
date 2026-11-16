@@ -7,7 +7,7 @@ description: Faz varredura exploratória em uma jornada web de homologação com
 
 ## Entrada
 
-- Jornada (precisa de `qa-jornadas/<jornada>/mapa.yaml`; se não existir, rode antes `mapear-jornada`).
+- Jornada (precisa de `qa-explorer/<jornada>/mapa.yaml`; se não existir, rode antes `mapear-jornada`).
 - Escopo opcional: etapas específicas (ex.: "só pagamento") e tempo/ações máximas.
 
 ## Passos
@@ -20,7 +20,7 @@ description: Faz varredura exploratória em uma jornada web de homologação com
    - Reproduziu → **bug**, com print e evidência técnica.
    - Não reproduziu → **suspeita (intermitente)**, com o que foi observado.
 5. Use as `lacunas` do mapa como oportunidade: o que der para observar agora, registre.
-6. Gere o relatório em `qa-jornadas/<jornada>/varreduras/AAAA-MM-DD-relatorio.md` seguindo `templates/relatorio-varredura.md`. Prints em `qa-jornadas/<jornada>/evidencias/varredura-AAAA-MM-DD/`.
+6. Gere o relatório em `qa-explorer/<jornada>/varreduras/AAAA-MM-DD-relatorio.md` seguindo `templates/relatorio-varredura.md`. Prints em `qa-explorer/<jornada>/evidencias/varredura-AAAA-MM-DD/`.
 7. Sugira quais bugs viram caso de teste de regressão.
 
 ## Severidade

@@ -30,20 +30,20 @@ Do refinamento do requisito até a regressão da jornada no navegador: análise 
 
 | Agente | Para quê |
 |---|---|
-| **qa-senior** | Requisitos, estimativa, casos de teste e cobertura. Trabalha com texto e arquivos. |
-| **qa-jornada** | Jornadas web: mapeia no navegador, caça bugs e roda regressão antes/depois. Só em homologação. |
+| **QA Analyst** (`qa-analyst`) | Requisitos, estimativa, casos de teste e cobertura. Trabalha com texto e arquivos. |
+| **QA Explorer** (`qa-explorer`) | Jornadas web: mapeia no navegador, caça bugs e roda regressão antes/depois. Só em homologação. |
 
 ### Skills
 
 | Skill | Agente | O que faz |
 |---|---|---|
-| `analise-requisitos` | qa-senior | Avalia prontidão e testabilidade, aponta ambiguidades com citação do texto, gera perguntas de refinamento e critérios de aceite em Gherkin |
-| `estimador-esforco-qa` | qa-senior | Estima em pontos Fibonacci (1 ponto ≈ 2h) a partir de complexidade funcional, técnica e automação reaproveitável, com script determinístico |
-| `geracao-testes` | qa-senior | Gera casos de teste em tabela: História/ Requisito, ID, Teste, Descrição, Precondição, Resultado esperado, Dado, Quando (passos detalhados), Então |
-| `revisao-cobertura` | qa-senior | Matriz de rastreabilidade critério × caso e lista do que falta testar |
-| `mapear-jornada` | qa-jornada | Percorre a jornada no navegador e gera um `mapa.yaml` com etapas, campos, validações, APIs e dados dinâmicos |
-| `varredura-exploratoria` | qa-jornada | Explora a jornada com heurísticas de teste e entrega relatório de bugs com passos e evidências |
-| `regressao-jornada` | qa-jornada | Grava a linha de base e compara depois da melhoria (API, valores na tela, estrutura e imagem) com Playwright Test |
+| `analise-requisitos` | QA Analyst | Avalia prontidão e testabilidade, aponta ambiguidades com citação do texto, gera perguntas de refinamento e critérios de aceite em Gherkin |
+| `estimador-esforco-qa` | QA Analyst | Estima em pontos Fibonacci (1 ponto ≈ 2h) a partir de complexidade funcional, técnica e automação reaproveitável, com script determinístico |
+| `geracao-testes` | QA Analyst | Gera casos de teste em tabela: História/ Requisito, ID, Teste, Descrição, Precondição, Resultado esperado, Dado, Quando (passos detalhados), Então |
+| `revisao-cobertura` | QA Analyst | Matriz de rastreabilidade critério × caso e lista do que falta testar |
+| `mapear-jornada` | QA Explorer | Percorre a jornada no navegador e gera um `mapa.yaml` com etapas, campos, validações, APIs e dados dinâmicos |
+| `varredura-exploratoria` | QA Explorer | Explora a jornada com heurísticas de teste e entrega relatório de bugs com passos e evidências |
+| `regressao-jornada` | QA Explorer | Grava a linha de base e compara depois da melhoria (API, valores na tela, estrutura e imagem) com Playwright Test |
 
 ### Servidores MCP
 
@@ -58,12 +58,12 @@ Do refinamento do requisito até a regressão da jornada no navegador: análise 
 
 ```mermaid
 flowchart LR
-    subgraph qa-senior
+    subgraph qa_analyst["QA Analyst"]
         A[analise-requisitos] --> B[estimador-esforco-qa]
         B --> C[geracao-testes]
         C --> D[revisao-cobertura]
     end
-    subgraph qa-jornada
+    subgraph qa_explorer["QA Explorer"]
         E[mapear-jornada] --> F[varredura-exploratoria]
         E --> G[regressao-jornada]
     end
@@ -84,7 +84,7 @@ flowchart LR
 
 - VS Code com GitHub Copilot e a configuração `chat.plugins.enabled` ativada (em algumas empresas ela é gerenciada pelo administrador).
 - Python 3 (scripts de estimativa e de resumo da regressão, só biblioteca padrão).
-- Para o **qa-jornada**: Node.js 20.12 ou superior.
+- Para o **QA Explorer**: Node.js 20.12 ou superior.
 
 ---
 
@@ -115,10 +115,10 @@ Para conferir: **Chat: Open Customizations** → **Plugins**. Devem aparecer os 
 
 ## Configuração
 
-### Playwright (agente qa-jornada)
+### Playwright (agente QA Explorer)
 
 1. Em `mcp.json`, no servidor `playwright`, troque `https://homolog.SEU-DOMINIO.com.br` pelo endereço de homologação. O `--allowed-origins` impede o navegador do agente de abrir outros sites (separe vários com `;`).
-2. Na primeira regressão, o agente cria a pasta `qa-jornadas/` no seu projeto, instala o `@playwright/test` (pede confirmação) e pede que você crie o `.env`:
+2. Na primeira regressão, o agente cria a pasta `qa-explorer/` no seu projeto, instala o `@playwright/test` (pede confirmação) e pede que você crie o `.env`:
 
    ```env
    QA_BASE_URL=https://homolog.SEU-DOMINIO.com.br
@@ -129,10 +129,10 @@ Para conferir: **Chat: Open Customizations** → **Plugins**. Devem aparecer os 
 3. Adicione ao `.gitignore` do seu projeto:
 
    ```gitignore
-   qa-jornadas/.env
-   qa-jornadas/.resultados/
-   qa-jornadas/.mcp-saida/
-   qa-jornadas/node_modules/
+   qa-explorer/.env
+   qa-explorer/.resultados/
+   qa-explorer/.mcp-saida/
+   qa-explorer/node_modules/
    ```
 
 As opções do Playwright MCP podem mudar entre versões: confira com `npx @playwright/mcp@latest --help`.
@@ -160,7 +160,7 @@ Se os nomes forem diferentes no seu servidor, ajuste as skills e os agentes.
 
 Abra o chat do Copilot (`Ctrl+Alt+I`), escolha o agente no seletor e peça.
 
-### qa-senior
+### QA Analyst
 
 | Quero | Exemplo |
 |---|---|
@@ -173,7 +173,7 @@ Abra o chat do Copilot (`Ctrl+Alt+I`), escolha o agente no seletor e peça.
 
 Também dá para chamar uma skill direto digitando `/` no chat (ex.: `/geracao-testes`).
 
-### qa-jornada
+### QA Explorer
 
 ```text
 Mapeie a jornada cotacao-residencial a partir de https://homolog.../cotacao
@@ -203,7 +203,7 @@ Etapas com falha: E3 - Resultado (cálculo do prêmio)
 Tudo o que os agentes geram fica no **seu projeto**, nunca na pasta do plugin:
 
 ```text
-qa-jornadas/
+qa-explorer/
 ├── playwright.config.ts
 ├── .env                      # não versionar
 └── <jornada>/
@@ -238,8 +238,8 @@ qa-agents/
 │       └── scripts/resumir_resultado.py
 ├── com.github.copilot/                 # específico do Copilot
 │   └── agents/
-│       ├── qa-senior.agent.md
-│       └── qa-jornada.agent.md
+│       ├── qa-analyst.agent.md
+│       └── qa-explorer.agent.md
 ├── evals/                              # golden set para validar mudanças
 ├── CHANGELOG.md
 └── README.md
